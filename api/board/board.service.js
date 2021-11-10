@@ -42,7 +42,7 @@ async function getById(boardId) {
     }
 }
 
-async function add(board, userId = null) {
+async function add(board) {
     const id = ObjectId();
     board._id = id;
     try {

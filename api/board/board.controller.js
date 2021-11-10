@@ -22,10 +22,9 @@ async function getBoardById(req, res) {
     }
 }
 async function addBoard(req, res) {
-    const { _id } = req.session.user
     const boardToSave = req.body;
     try {
-        const board = await boardService.add(boardToSave, _id)
+        const board = await boardService.add(boardToSave)
         res.json(board)
     } catch (err) {
         logger.error('Failed to add board', err)
