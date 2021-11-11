@@ -8,7 +8,8 @@ module.exports = {
     getById,
     add,
     remove,
-    update
+    update,
+    updateBoards
 }
 
 // function _buildCriteria(filter) {
@@ -69,6 +70,24 @@ async function update(board) {
     }
 }
 
+async function updateBoards(boards) {
+    try {
+
+        const collection = await dbService.getCollection('board');
+        await collection.deleteMany({})
+
+        for(let i =0;i<boards.length;i++){
+            await add(boards[i])
+        }
+        
+        return boards
+      
+    } catch (err) {
+        logger.error(`cannot update boards`, err)
+        throw err
+    }
+}
+
 async function remove(boardId) {
     const id = ObjectId(boardId)
     try {
@@ -84,3 +103,7 @@ async function remove(boardId) {
         throw err
     }
 }
+
+
+
+

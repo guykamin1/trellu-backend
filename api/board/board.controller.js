@@ -42,6 +42,17 @@ async function updateBoard(req, res) {
     }
 }
 
+async function updateBoards(req, res) {
+    const boards = req.body;
+    try {
+        await boardService.updateBoards(boards)
+        res.json(boards)
+    } catch (err) {
+        logger.error('Failed to update boards', err)
+        res.status(500).send({ err: 'Failed to update boards' })
+    }
+}
+
 async function removeBoard(req, res) {
     const { id } = req.params
     try {
@@ -58,6 +69,7 @@ module.exports = {
     getBoardById,
     addBoard,
     updateBoard,
-    removeBoard
+    removeBoard,
+    updateBoards
 }
 
